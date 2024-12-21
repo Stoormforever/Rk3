@@ -1,0 +1,24 @@
+CC := gcc
+
+CFLAGS := -std=gnu99 -Wall -Werror -pedantic -Wextra
+
+SRCS := $(wildcard *.c)
+
+OBJS := $(patsubst %.c, %.o, $(SRCS))
+
+build : app.exe
+
+app.exe : $(OBJS)
+	$(CC) -o $@ $(OBJS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY : clean build run
+
+clean :
+	rm *.exe *.o
+
+build : app.exe
+
+run: ./app.exe
